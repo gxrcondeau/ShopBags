@@ -3,6 +3,6 @@
     public class Size
     {
         public int Id { get; set; }
-        public char Value { get; set; }
+        public string Value { get; set; }
     }
 }

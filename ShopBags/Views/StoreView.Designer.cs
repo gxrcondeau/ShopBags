@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -43,11 +43,10 @@
             bagBindingSource1 = new BindingSource(components);
             panel1 = new Panel();
             panel2 = new Panel();
+            btnPanel = new Button();
             imgUserIcon = new PictureBox();
             lblEmail = new Label();
             lblUsername = new Label();
-            btnAccount = new Button();
-            btnPanel = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bagBindingSource2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bagBindingSource).BeginInit();
@@ -62,14 +61,14 @@
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.ButtonFace;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn, Size, Category, Brand, Action, Count });
             dataGridView1.DataSource = bagBindingSource2;
@@ -149,7 +148,6 @@
             // 
             panel2.BackColor = Color.FromArgb(255, 192, 192);
             panel2.Controls.Add(btnPanel);
-            panel2.Controls.Add(btnAccount);
             panel2.Controls.Add(imgUserIcon);
             panel2.Controls.Add(lblEmail);
             panel2.Controls.Add(lblUsername);
@@ -158,6 +156,17 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(199, 102);
             panel2.TabIndex = 3;
+            // 
+            // btnPanel
+            // 
+            btnPanel.Location = new Point(3, 66);
+            btnPanel.Name = "btnPanel";
+            btnPanel.Size = new Size(92, 23);
+            btnPanel.TabIndex = 3;
+            btnPanel.Text = "Admin Panel";
+            btnPanel.UseVisualStyleBackColor = true;
+            btnPanel.Visible = false;
+            btnPanel.Click += btnPanel_Click;
             // 
             // imgUserIcon
             // 
@@ -188,27 +197,6 @@
             lblUsername.Size = new Size(38, 15);
             lblUsername.TabIndex = 1;
             lblUsername.Text = "label1";
-            // 
-            // btnAccount
-            // 
-            btnAccount.Location = new Point(3, 66);
-            btnAccount.Name = "btnAccount";
-            btnAccount.Size = new Size(92, 23);
-            btnAccount.TabIndex = 2;
-            btnAccount.Text = "Account";
-            btnAccount.UseVisualStyleBackColor = true;
-            btnAccount.Click += btnAccount_Click;
-            // 
-            // btnPanel
-            // 
-            btnPanel.Location = new Point(101, 66);
-            btnPanel.Name = "btnPanel";
-            btnPanel.Size = new Size(92, 23);
-            btnPanel.TabIndex = 3;
-            btnPanel.Text = "Admin Panel";
-            btnPanel.UseVisualStyleBackColor = true;
-            btnPanel.Visible = false;
-            btnPanel.Click += btnPanel_Click;
             // 
             // StoreView
             // 
@@ -250,7 +238,6 @@
         private Label lblEmail;
         private Label lblUsername;
         private Panel panel2;
-        private Button btnAccount;
         private Button btnPanel;
     }
 }

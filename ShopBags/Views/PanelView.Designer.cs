@@ -32,25 +32,45 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelView));
             tcPanel = new TabControl();
             tabBrands = new TabPage();
+            label5 = new Label();
             btnUpdateBrands = new Button();
             txtNewBrand = new TextBox();
             btnCreateBrand = new Button();
             dgvBrands = new DataGridView();
             brandBindingSource = new BindingSource(components);
             tabPage2 = new TabPage();
+            label6 = new Label();
+            btnUpdateCategories = new Button();
             txtNewCategory = new TextBox();
             btnCreateCategory = new Button();
             dgvCategories = new DataGridView();
             tabPage3 = new TabPage();
+            btnForceUpdate = new Button();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            cbNewProductCategory = new ComboBox();
+            cbNewProductBrand = new ComboBox();
+            txtNewProduct = new TextBox();
+            cbNewProductSize = new ComboBox();
+            btnCreateProduct = new Button();
+            dgvProducts = new DataGridView();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
-            btnUpdateCategories = new Button();
+            dgvUsers = new DataGridView();
+            btnUpdateUsers = new Button();
+            btnUpdateProducts = new Button();
             tcPanel.SuspendLayout();
             tabBrands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBrands).BeginInit();
             ((System.ComponentModel.ISupportInitialize)brandBindingSource).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategories).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
+            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
             // 
             // tcPanel
@@ -71,6 +91,7 @@
             // 
             // tabBrands
             // 
+            tabBrands.Controls.Add(label5);
             tabBrands.Controls.Add(btnUpdateBrands);
             tabBrands.Controls.Add(txtNewBrand);
             tabBrands.Controls.Add(btnCreateBrand);
@@ -82,6 +103,17 @@
             tabBrands.TabIndex = 0;
             tabBrands.Text = "Brands";
             tabBrands.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(95, 20);
+            label5.MinimumSize = new Size(0, 24);
+            label5.Name = "label5";
+            label5.Size = new Size(39, 24);
+            label5.TabIndex = 3;
+            label5.Text = "Name";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnUpdateBrands
             // 
@@ -96,7 +128,7 @@
             // 
             // txtNewBrand
             // 
-            txtNewBrand.Location = new Point(89, 21);
+            txtNewBrand.Location = new Point(140, 20);
             txtNewBrand.MinimumSize = new Size(0, 24);
             txtNewBrand.Name = "txtNewBrand";
             txtNewBrand.Size = new Size(100, 23);
@@ -129,6 +161,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(btnUpdateCategories);
             tabPage2.Controls.Add(txtNewCategory);
             tabPage2.Controls.Add(btnCreateCategory);
@@ -141,12 +174,34 @@
             tabPage2.Text = "Categories";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(95, 20);
+            label6.MinimumSize = new Size(0, 24);
+            label6.Name = "label6";
+            label6.Size = new Size(39, 24);
+            label6.TabIndex = 7;
+            label6.Text = "Name";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnUpdateCategories
+            // 
+            btnUpdateCategories.Image = (Image)resources.GetObject("btnUpdateCategories.Image");
+            btnUpdateCategories.Location = new Point(1212, 16);
+            btnUpdateCategories.MinimumSize = new Size(32, 32);
+            btnUpdateCategories.Name = "btnUpdateCategories";
+            btnUpdateCategories.Size = new Size(32, 32);
+            btnUpdateCategories.TabIndex = 6;
+            btnUpdateCategories.UseVisualStyleBackColor = true;
+            btnUpdateCategories.Click += btnUpdateCategories_Click;
+            // 
             // txtNewCategory
             // 
-            txtNewCategory.Location = new Point(89, 20);
+            txtNewCategory.Location = new Point(140, 20);
             txtNewCategory.MinimumSize = new Size(0, 24);
             txtNewCategory.Name = "txtNewCategory";
-            txtNewCategory.Size = new Size(100, 24);
+            txtNewCategory.Size = new Size(100, 23);
             txtNewCategory.TabIndex = 5;
             // 
             // btnCreateCategory
@@ -168,9 +223,22 @@
             dgvCategories.Name = "dgvCategories";
             dgvCategories.Size = new Size(1244, 587);
             dgvCategories.TabIndex = 3;
+            dgvCategories.CellEndEdit += dgvCategories_CellEndEdit;
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(btnUpdateProducts);
+            tabPage3.Controls.Add(btnForceUpdate);
+            tabPage3.Controls.Add(label4);
+            tabPage3.Controls.Add(label3);
+            tabPage3.Controls.Add(label2);
+            tabPage3.Controls.Add(label1);
+            tabPage3.Controls.Add(cbNewProductCategory);
+            tabPage3.Controls.Add(cbNewProductBrand);
+            tabPage3.Controls.Add(txtNewProduct);
+            tabPage3.Controls.Add(cbNewProductSize);
+            tabPage3.Controls.Add(btnCreateProduct);
+            tabPage3.Controls.Add(dgvProducts);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -178,6 +246,112 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Products";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnForceUpdate
+            // 
+            btnForceUpdate.Location = new Point(1111, 20);
+            btnForceUpdate.Name = "btnForceUpdate";
+            btnForceUpdate.Size = new Size(95, 23);
+            btnForceUpdate.TabIndex = 10;
+            btnForceUpdate.Text = "Force update";
+            btnForceUpdate.UseVisualStyleBackColor = true;
+            btnForceUpdate.Click += btnForceUpdate_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(616, 20);
+            label4.MinimumSize = new Size(0, 24);
+            label4.Name = "label4";
+            label4.Size = new Size(55, 24);
+            label4.TabIndex = 9;
+            label4.Text = "Category";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(431, 20);
+            label3.MinimumSize = new Size(0, 24);
+            label3.Name = "label3";
+            label3.Size = new Size(38, 24);
+            label3.TabIndex = 8;
+            label3.Text = "Brand";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(256, 20);
+            label2.MinimumSize = new Size(0, 24);
+            label2.Name = "label2";
+            label2.Size = new Size(27, 24);
+            label2.TabIndex = 7;
+            label2.Text = "Size";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(95, 20);
+            label1.MinimumSize = new Size(0, 24);
+            label1.Name = "label1";
+            label1.Size = new Size(39, 24);
+            label1.TabIndex = 6;
+            label1.Text = "Name";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // cbNewProductCategory
+            // 
+            cbNewProductCategory.FormattingEnabled = true;
+            cbNewProductCategory.Location = new Point(677, 20);
+            cbNewProductCategory.Name = "cbNewProductCategory";
+            cbNewProductCategory.Size = new Size(121, 23);
+            cbNewProductCategory.TabIndex = 5;
+            // 
+            // cbNewProductBrand
+            // 
+            cbNewProductBrand.FormattingEnabled = true;
+            cbNewProductBrand.Location = new Point(476, 20);
+            cbNewProductBrand.Name = "cbNewProductBrand";
+            cbNewProductBrand.Size = new Size(121, 23);
+            cbNewProductBrand.TabIndex = 4;
+            // 
+            // txtNewProduct
+            // 
+            txtNewProduct.Location = new Point(140, 20);
+            txtNewProduct.MinimumSize = new Size(100, 24);
+            txtNewProduct.Name = "txtNewProduct";
+            txtNewProduct.Size = new Size(100, 23);
+            txtNewProduct.TabIndex = 3;
+            // 
+            // cbNewProductSize
+            // 
+            cbNewProductSize.FormattingEnabled = true;
+            cbNewProductSize.Location = new Point(291, 20);
+            cbNewProductSize.Name = "cbNewProductSize";
+            cbNewProductSize.Size = new Size(121, 23);
+            cbNewProductSize.TabIndex = 2;
+            // 
+            // btnCreateProduct
+            // 
+            btnCreateProduct.Location = new Point(8, 20);
+            btnCreateProduct.MinimumSize = new Size(0, 24);
+            btnCreateProduct.Name = "btnCreateProduct";
+            btnCreateProduct.Size = new Size(75, 24);
+            btnCreateProduct.TabIndex = 1;
+            btnCreateProduct.Text = "Create new";
+            btnCreateProduct.UseVisualStyleBackColor = false;
+            btnCreateProduct.Click += btnCreateProduct_Click;
+            // 
+            // dgvProducts
+            // 
+            dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProducts.Location = new Point(0, 64);
+            dgvProducts.Name = "dgvProducts";
+            dgvProducts.Size = new Size(1256, 589);
+            dgvProducts.TabIndex = 0;
+            dgvProducts.CellEndEdit += dgvProducts_CellEndEdit;
             // 
             // tabPage4
             // 
@@ -191,6 +365,8 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(dgvUsers);
+            tabPage5.Controls.Add(btnUpdateUsers);
             tabPage5.Location = new Point(4, 24);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -199,15 +375,36 @@
             tabPage5.Text = "Users";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // btnUpdateCategories
+            // dgvUsers
             // 
-            btnUpdateCategories.Image = (Image)resources.GetObject("btnUpdateBrands.Image");
-            btnUpdateCategories.Location = new Point(1212, 20);
-            btnUpdateCategories.MinimumSize = new Size(32, 32);
-            btnUpdateCategories.Name = "btnUpdateCategories";
-            btnUpdateCategories.Size = new Size(32, 32);
-            btnUpdateCategories.TabIndex = 6;
-            btnUpdateCategories.UseVisualStyleBackColor = true;
+            dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsers.Location = new Point(0, 64);
+            dgvUsers.Name = "dgvUsers";
+            dgvUsers.Size = new Size(1244, 587);
+            dgvUsers.TabIndex = 5;
+            dgvUsers.CellEndEdit += dgvUsers_CellEndEdit;
+            // 
+            // btnUpdateUsers
+            // 
+            btnUpdateUsers.Image = (Image)resources.GetObject("btnUpdateUsers.Image");
+            btnUpdateUsers.Location = new Point(1212, 16);
+            btnUpdateUsers.MinimumSize = new Size(32, 32);
+            btnUpdateUsers.Name = "btnUpdateUsers";
+            btnUpdateUsers.Size = new Size(32, 32);
+            btnUpdateUsers.TabIndex = 4;
+            btnUpdateUsers.UseVisualStyleBackColor = true;
+            btnUpdateUsers.Click += btnUpdateUsers_Click;
+            // 
+            // btnUpdateProducts
+            // 
+            btnUpdateProducts.Image = (Image)resources.GetObject("btnUpdateProducts.Image");
+            btnUpdateProducts.Location = new Point(1212, 16);
+            btnUpdateProducts.MinimumSize = new Size(32, 32);
+            btnUpdateProducts.Name = "btnUpdateProducts";
+            btnUpdateProducts.Size = new Size(32, 32);
+            btnUpdateProducts.TabIndex = 11;
+            btnUpdateProducts.UseVisualStyleBackColor = true;
+            btnUpdateProducts.Click += btnUpdateProducts_Click;
             // 
             // PanelView
             // 
@@ -226,6 +423,11 @@
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategories).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
+            tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             ResumeLayout(false);
         }
 
@@ -246,5 +448,21 @@
         private Button btnCreateCategory;
         public DataGridView dgvCategories;
         private Button btnUpdateCategories;
+        private Button btnUpdateUsers;
+        public DataGridView dgvUsers;
+        public DataGridView dgvProducts;
+        private TextBox txtNewProduct;
+        private ComboBox cbNewProductSize;
+        private Button btnCreateProduct;
+        private ComboBox cbNewProductCategory;
+        private ComboBox cbNewProductBrand;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private Label label5;
+        private Label label6;
+        private Button btnForceUpdate;
+        private Button btnUpdateProducts;
     }
 }

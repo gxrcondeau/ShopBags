@@ -1,8 +1,8 @@
 ﻿namespace ShopBags.Models
 {
-    public class Role
+    internal class Role
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public string _roleName {  get; set; }
+        public int _roleId { get; set; }
     }
 }

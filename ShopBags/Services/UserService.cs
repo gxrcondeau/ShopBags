@@ -13,7 +13,7 @@ namespace ShopBags.Services
         public bool AuthenticateUser(string email, string password)
         {
             // Implement your authentication logic (e.g., check against the database)
-            string query = $"SELECT usr.id as 'Id', usr.name as 'Name', usr.email as 'Email', role.title as 'Role' FROM [User] usr LEFT JOIN Role role ON role.id = usr.role WHERE email = '{email}' AND password = '{password}'";
+            string query = $"SELECT id as 'Id', username as 'Name', email as 'Email', isAdmin as 'IsAdmin', isEditor as 'IsEditor' FROM Users WHERE email = @Email AND password = @Password AND isActive = 1";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -33,9 +33,10 @@ namespace ShopBags.Services
                             int userId = reader.GetInt32(reader.GetOrdinal("Id"));
                             string userName = reader.GetString(reader.GetOrdinal("Name"));
                             string userEmail = reader.GetString(reader.GetOrdinal("Email"));
-                            string userRole = reader.GetString(reader.GetOrdinal("Role"));
+                            bool isAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"));
+                            bool isEditor = reader.GetBoolean(reader.GetOrdinal("IsEditor"));
 
-                            UserSession.Instance.SetUserData(userId, userName, userEmail, userRole);
+                            UserSession.Instance.SetUserData(userId, userName, userEmail, isAdmin, isEditor);
 
                             return true;
                         }
@@ -56,7 +57,7 @@ namespace ShopBags.Services
                 return "Email is not unique"; // Registration failed - email is not unique
             }
 
-            string query = "INSERT INTO [User] (name, password, email, role) VALUES (@Username, @Password, @Email, @Role)";
+            string query = "INSERT INTO Users (username, password, email, isActive) VALUES (@Username, @Password, @Email, @IsActive)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -67,7 +68,7 @@ namespace ShopBags.Services
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Role", 1); // Set the default role (adjust as needed)
+                    command.Parameters.AddWithValue("@IsActive", 1);
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -85,7 +86,7 @@ namespace ShopBags.Services
         }
         private bool IsEmailUnique(string email)
         {
-            string query = "SELECT COUNT(*) FROM [User] WHERE Email = @Email";
+            string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

@@ -1,7 +1,4 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-
-namespace ShopBags.Sessions
+﻿namespace ShopBags.Sessions
 {
     public class UserSession
     {
@@ -10,7 +7,8 @@ namespace ShopBags.Sessions
         public int id { get; private set; }
         public string email { get; private set; }
         public string username { get; private set; }
-        public string role { get; private set; }
+        public bool isAdmin { get; private set; }
+        public bool isEditor { get; private set; }
 
         private UserSession() { }
 
@@ -26,12 +24,13 @@ namespace ShopBags.Sessions
             }
         }
 
-        public void SetUserData(int userId, string userName, string userEmail, string userRole)
+        public void SetUserData(int userId, string userName, string userEmail, bool admin, bool editor)
         {
             id = userId;
             username = userName;
             email = userEmail;
-            role = userRole;
+            isAdmin = admin;
+            isEditor = editor;
         }
 
     }

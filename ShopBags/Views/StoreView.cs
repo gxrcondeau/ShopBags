@@ -27,11 +27,16 @@ namespace ShopBags.Views
         {
 
             lblUsername.Text = UserSession.Instance.username;
-            lblEmail.Text = UserSession.Instance.role;
+            lblEmail.Text = UserSession.Instance.email;
 
             // Check if user has admin role and enable access to panel
-            if (UserSession.Instance.role == "admin")
+            if (UserSession.Instance.isAdmin)
             {
+                btnPanel.Visible = true;
+            }
+            else if (UserSession.Instance.isEditor)
+            {
+                btnPanel.Text = "Editor panel";
                 btnPanel.Visible = true;
             }
             else
@@ -48,11 +53,6 @@ namespace ShopBags.Views
         private void btnPanel_Click(object sender, EventArgs e)
         {
             OpenPanel?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void btnAccount_Click(object sender, EventArgs e)
-        {
-            ShowError("Test");
         }
     }
 }

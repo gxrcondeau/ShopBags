@@ -16,7 +16,7 @@ namespace ShopBags
             ApplicationConfiguration.Initialize();
 
             UserService user = new UserService();
-            UserSession.Instance.SetUserData(0, "", "", ""); // You can set default values or leave them empty
+            UserSession.Instance.SetUserData(0, "", "", false, false); // You can set default values or leave them empty
 
             authView = new AuthView();
             storeView = new StoreView();
