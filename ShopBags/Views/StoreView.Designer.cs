@@ -28,39 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            dataGridView1 = new DataGridView();
-            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            Size = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
-            Brand = new DataGridViewTextBoxColumn();
-            Action = new DataGridViewButtonColumn();
-            Count = new DataGridViewComboBoxColumn();
-            bagBindingSource2 = new BindingSource(components);
-            bagBindingSource = new BindingSource(components);
-            bagBindingSource1 = new BindingSource(components);
+            dgvStore = new DataGridView();
             panel1 = new Panel();
+            btnShowCart = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            btnApplyFilters = new Button();
+            txtNameFilter = new TextBox();
+            cbSizeFilter = new ComboBox();
+            label4 = new Label();
+            cbBrandFilter = new ComboBox();
+            label3 = new Label();
+            cbCategoryFilter = new ComboBox();
+            label2 = new Label();
+            label1 = new Label();
             panel2 = new Panel();
             btnPanel = new Button();
             imgUserIcon = new PictureBox();
             lblEmail = new Label();
             lblUsername = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource1).BeginInit();
+            btnResetFilters = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvStore).BeginInit();
             panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imgUserIcon).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvStore
             // 
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvStore.BackgroundColor = SystemColors.ButtonFace;
+            dgvStore.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.ButtonFace;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -68,81 +66,161 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn, Size, Category, Brand, Action, Count });
-            dataGridView1.DataSource = bagBindingSource2;
-            dataGridView1.Dock = DockStyle.Right;
-            dataGridView1.GridColor = Color.Gray;
-            dataGridView1.Location = new Point(199, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridView1.RowTemplate.Height = 30;
-            dataGridView1.Size = new Size(1065, 681);
-            dataGridView1.TabIndex = 0;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // Size
-            // 
-            Size.HeaderText = "Size";
-            Size.Name = "Size";
-            Size.ReadOnly = true;
-            // 
-            // Category
-            // 
-            Category.HeaderText = "Category";
-            Category.Name = "Category";
-            Category.ReadOnly = true;
-            // 
-            // Brand
-            // 
-            Brand.HeaderText = "Brand";
-            Brand.Name = "Brand";
-            Brand.ReadOnly = true;
-            // 
-            // Action
-            // 
-            Action.HeaderText = "Action";
-            Action.Name = "Action";
-            Action.ReadOnly = true;
-            // 
-            // Count
-            // 
-            Count.HeaderText = "Count";
-            Count.Name = "Count";
-            Count.ReadOnly = true;
-            // 
-            // bagBindingSource2
-            // 
-            bagBindingSource2.DataSource = typeof(Models.Bag);
-            // 
-            // bagBindingSource
-            // 
-            bagBindingSource.DataSource = typeof(Models.Bag);
-            // 
-            // bagBindingSource1
-            // 
-            bagBindingSource1.DataSource = typeof(Models.Bag);
+            dgvStore.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvStore.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStore.Dock = DockStyle.Right;
+            dgvStore.GridColor = Color.Gray;
+            dgvStore.Location = new Point(199, 0);
+            dgvStore.Name = "dgvStore";
+            dgvStore.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvStore.RowTemplate.Height = 30;
+            dgvStore.Size = new Size(1065, 681);
+            dgvStore.TabIndex = 0;
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnShowCart);
+            panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(panel2);
+            panel1.Controls.Add(btnResetFilters);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 681);
             panel1.TabIndex = 1;
+            // 
+            // btnShowCart
+            // 
+            btnShowCart.BackgroundImage = Assets.Resource.icon_cart;
+            btnShowCart.BackgroundImageLayout = ImageLayout.Zoom;
+            btnShowCart.Dock = DockStyle.Bottom;
+            btnShowCart.Location = new Point(0, 622);
+            btnShowCart.Margin = new Padding(10);
+            btnShowCart.Name = "btnShowCart";
+            btnShowCart.Padding = new Padding(10);
+            btnShowCart.Size = new Size(199, 59);
+            btnShowCart.TabIndex = 5;
+            btnShowCart.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(btnApplyFilters, 0, 9);
+            tableLayoutPanel1.Controls.Add(txtNameFilter, 0, 2);
+            tableLayoutPanel1.Controls.Add(cbSizeFilter, 0, 8);
+            tableLayoutPanel1.Controls.Add(label4, 0, 7);
+            tableLayoutPanel1.Controls.Add(cbBrandFilter, 0, 6);
+            tableLayoutPanel1.Controls.Add(label3, 0, 5);
+            tableLayoutPanel1.Controls.Add(cbCategoryFilter, 0, 4);
+            tableLayoutPanel1.Controls.Add(label2, 0, 3);
+            tableLayoutPanel1.Controls.Add(label1, 0, 1);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(0, 102);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 10;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.Size = new Size(199, 283);
+            tableLayoutPanel1.TabIndex = 4;
+            // 
+            // btnApplyFilters
+            // 
+            btnApplyFilters.Dock = DockStyle.Fill;
+            btnApplyFilters.Location = new Point(3, 255);
+            btnApplyFilters.Name = "btnApplyFilters";
+            btnApplyFilters.Size = new Size(193, 25);
+            btnApplyFilters.TabIndex = 6;
+            btnApplyFilters.Text = "Filter";
+            btnApplyFilters.UseVisualStyleBackColor = true;
+            btnApplyFilters.Click += btnApplyFilters_Click;
+            // 
+            // txtNameFilter
+            // 
+            txtNameFilter.Dock = DockStyle.Fill;
+            txtNameFilter.Location = new Point(3, 59);
+            txtNameFilter.Name = "txtNameFilter";
+            txtNameFilter.Size = new Size(193, 23);
+            txtNameFilter.TabIndex = 7;
+            // 
+            // cbSizeFilter
+            // 
+            cbSizeFilter.Dock = DockStyle.Fill;
+            cbSizeFilter.FormattingEnabled = true;
+            cbSizeFilter.Location = new Point(3, 227);
+            cbSizeFilter.Name = "cbSizeFilter";
+            cbSizeFilter.Size = new Size(193, 23);
+            cbSizeFilter.TabIndex = 10;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Fill;
+            label4.Location = new Point(3, 196);
+            label4.Name = "label4";
+            label4.Size = new Size(193, 28);
+            label4.TabIndex = 14;
+            label4.Text = "Size";
+            label4.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // cbBrandFilter
+            // 
+            cbBrandFilter.Dock = DockStyle.Fill;
+            cbBrandFilter.FormattingEnabled = true;
+            cbBrandFilter.Location = new Point(3, 171);
+            cbBrandFilter.Name = "cbBrandFilter";
+            cbBrandFilter.Size = new Size(193, 23);
+            cbBrandFilter.TabIndex = 9;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
+            label3.Location = new Point(3, 140);
+            label3.Name = "label3";
+            label3.Size = new Size(193, 28);
+            label3.TabIndex = 13;
+            label3.Text = "Brand";
+            label3.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // cbCategoryFilter
+            // 
+            cbCategoryFilter.Dock = DockStyle.Fill;
+            cbCategoryFilter.FormattingEnabled = true;
+            cbCategoryFilter.Location = new Point(3, 115);
+            cbCategoryFilter.Name = "cbCategoryFilter";
+            cbCategoryFilter.Size = new Size(193, 23);
+            cbCategoryFilter.TabIndex = 8;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Fill;
+            label2.Location = new Point(3, 84);
+            label2.Name = "label2";
+            label2.Size = new Size(193, 28);
+            label2.TabIndex = 12;
+            label2.Text = "Category";
+            label2.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Dock = DockStyle.Fill;
+            label1.Location = new Point(3, 28);
+            label1.Name = "label1";
+            label1.Size = new Size(193, 28);
+            label1.TabIndex = 11;
+            label1.Text = "Bag name";
+            label1.TextAlign = ContentAlignment.BottomLeft;
             // 
             // panel2
             // 
@@ -198,22 +276,31 @@
             lblUsername.TabIndex = 1;
             lblUsername.Text = "label1";
             // 
+            // btnResetFilters
+            // 
+            btnResetFilters.Location = new Point(3, 388);
+            btnResetFilters.Name = "btnResetFilters";
+            btnResetFilters.Size = new Size(190, 22);
+            btnResetFilters.TabIndex = 15;
+            btnResetFilters.Text = "Reset filters";
+            btnResetFilters.UseVisualStyleBackColor = true;
+            btnResetFilters.Click += btnResetFilters_Click;
+            // 
             // StoreView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 681);
             Controls.Add(panel1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvStore);
             Name = "StoreView";
             Text = "StoreView";
             FormClosed += StoreView_FormClosed;
             Load += StoreView_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bagBindingSource1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStore).EndInit();
             panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)imgUserIcon).EndInit();
@@ -222,22 +309,25 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Size;
-        private DataGridViewTextBoxColumn Category;
-        private DataGridViewTextBoxColumn Brand;
-        private DataGridViewButtonColumn Action;
-        private DataGridViewComboBoxColumn Count;
-        private BindingSource bagBindingSource2;
-        private BindingSource bagBindingSource;
-        private BindingSource bagBindingSource1;
+        private DataGridView dgvStore;
         private Panel panel1;
         private PictureBox imgUserIcon;
         private Label lblEmail;
         private Label lblUsername;
         private Panel panel2;
         private Button btnPanel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ComboBox cbSize;
+        private Button btnShowCart;
+        private Button btnApplyFilters;
+        private TextBox txtNameFilter;
+        private ComboBox cbCategoryFilter;
+        private ComboBox cbBrandFilter;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private ComboBox cbSizeFilter;
+        private Button btnResetFilters;
     }
 }

@@ -48,6 +48,45 @@ namespace ShopBags.Helpers
             }
         }
 
+        public static void LoadBrandsData(StoreView view)
+        {
+            List<Models.Brand> brands = new List<Models.Brand>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Load brand data from the Brands table
+                    string query = "SELECT id, name FROM Brands WHERE isActive = 1";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Models.Brand brandItem = new Models.Brand()
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Name = reader.GetString(1)
+                                };
+
+                                // Add the brand to the ComboBox
+                                brands.Add(brandItem);
+                            }
+                            view.DisplayBrandsCB(brands);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowError(ex.Message);
+            }
+        }
+
+
         public static int GetBrandId(string name)
         {
             int id = -1;
@@ -104,6 +143,5 @@ namespace ShopBags.Helpers
                 MessageBox.Show($"Error loading brand data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }

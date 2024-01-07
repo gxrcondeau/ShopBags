@@ -1,12 +1,24 @@
 ﻿using ShopBags.Sessions;
+using System.Data;
 
 namespace ShopBags.Views
 {
     public interface IStoreView
     {
         event EventHandler OpenPanel;
+        event EventHandler FetchProducts;
+        event EventHandler FetchProductsWithFilters;
+        event EventHandler FetchSizesHelper;
+        event EventHandler FetchBrandsHelper;
+        event EventHandler FetchCategoriesHelper;
+
+        string NameFilter { get; }
+        string BrandFilter { get; }
+        string CategoryFilter { get; }
+        string SizeFilter { get; }
         
         void ShowError(string message);
+        void ShowInfo(string message);
     }
 
     public partial class StoreView : Form, IStoreView
@@ -16,11 +28,26 @@ namespace ShopBags.Views
             InitializeComponent();
         }
 
+        public string NameFilter => txtNameFilter.Text;
+        public string BrandFilter => cbBrandFilter.Text;
+        public string CategoryFilter => cbCategoryFilter.Text;
+        public string SizeFilter => cbSizeFilter.Text;
+
         public event EventHandler OpenPanel;
+        public event EventHandler FetchProducts;
+        public event EventHandler FetchProductsWithFilters;
+        public event EventHandler FetchSizesHelper;
+        public event EventHandler FetchBrandsHelper;
+        public event EventHandler FetchCategoriesHelper;
 
         public void ShowError(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void ShowInfo(string message)
+        {
+            MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void StoreView_Load(object sender, EventArgs e)
@@ -43,6 +70,11 @@ namespace ShopBags.Views
             {
                 btnPanel.Visible = false;
             }
+
+            FetchProducts?.Invoke(this, EventArgs.Empty);
+            FetchBrandsHelper?.Invoke(this, EventArgs.Empty);
+            FetchSizesHelper?.Invoke(this, EventArgs.Empty);
+            FetchCategoriesHelper?.Invoke(this, EventArgs.Empty);
         }
 
         private void StoreView_FormClosed(object sender, FormClosedEventArgs e)
@@ -53,6 +85,77 @@ namespace ShopBags.Views
         private void btnPanel_Click(object sender, EventArgs e)
         {
             OpenPanel?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void DeleteColumn(string column)
+        {
+            if (dgvStore.Columns.Cast<DataGridViewColumn>().Any(col => col.Name == column))
+            {
+                dgvStore.Columns.Remove(dgvStore.Columns[column]);
+            }
+
+        }
+
+        private void AddColumn(DataGridViewComboBoxColumn column)
+        {
+            if (!dgvStore.Columns.Cast<DataGridViewColumn>().Any(col => col.Name == column.Name))
+            {
+                dgvStore.Columns.Add(column);
+            }
+        }
+
+        // Products methods
+        public void DisplayProducts(DataTable dataTable)
+        {
+            dgvStore.DataSource = dataTable;
+
+            DeleteColumn("SizeId");
+            DeleteColumn("BrandId");
+            DeleteColumn("CategoryId");
+        }
+
+        public void DisplayProductsWithFilters(DataTable dataTable)
+        {
+            dgvStore.DataSource = dataTable;
+
+            DeleteColumn("SizeId");
+            DeleteColumn("BrandId");
+            DeleteColumn("CategoryId");
+        }
+
+        public void DisplaySizesCB(List<Models.Size> sizes)
+        {
+            foreach (Models.Size item in sizes)
+            {
+                cbSizeFilter.Items.Add(item.Value.ToString());
+            }
+        }
+
+        public void DisplayBrandsCB(List<Models.Brand> brands)
+        {
+            foreach (Models.Brand item in brands)
+            {
+                cbBrandFilter.Items.Add(item.Name.ToString());
+            }
+        }
+
+        public void DisplayCategoriesCB(List<Models.Category> categories)
+        {
+            foreach (Models.Category item in categories)
+            {
+                cbCategoryFilter.Items.Add(item.Name.ToString());
+            }
+        }
+
+        private void btnApplyFilters_Click(object sender, EventArgs e)
+        {
+            FetchProductsWithFilters?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnResetFilters_Click(object sender, EventArgs e)
+        {
+            txtNameFilter.Text = "";
+            FetchProducts?.Invoke(this, EventArgs.Empty);
         }
     }
 }

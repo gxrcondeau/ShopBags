@@ -49,6 +49,45 @@ namespace ShopBags.Helpers
             }
         }
 
+        public static void LoadSizeData(StoreView view)
+        {
+            List<Models.Size> sizes = new List<Models.Size>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Load size data from the Sizes table
+                    string query = "SELECT id, value FROM Sizes";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Assuming you have a class named SizeItem with properties Id and Value
+                                Models.Size sizeItem = new Models.Size()
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Value = reader.GetString(1)
+                                };
+
+                                // Add the sizeItem to the ComboBox
+                                sizes.Add(sizeItem);
+                            }
+                            view.DisplaySizesCB(sizes);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowError(ex.Message);
+            }
+        }
+
         public static int GetSizeId(string value)
         {
             int id = -1;
