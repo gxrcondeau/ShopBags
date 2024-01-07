@@ -6,7 +6,7 @@ namespace ShopBags.Helpers
     internal static class SizesHelper
     {
         private const string DB_SERVER = "localhost";
-        private const string DB_NAME = "test";
+        private const string DB_NAME = "ShopBags";
 
         private static string connectionString = $"Server={DB_SERVER};Database={DB_NAME};Trusted_Connection=True;";
 

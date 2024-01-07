@@ -1,4 +1,5 @@
 using ShopBags.Controllers;
+using ShopBags.Helpers;
 using ShopBags.Services;
 using ShopBags.Sessions;
 using ShopBags.Views;
@@ -14,6 +15,8 @@ namespace ShopBags
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+
+            BootstrapHelper.Execute();
 
             UserService user = new UserService();
             UserSession.Instance.SetUserData(0, "", "", false, false); // You can set default values or leave them empty
