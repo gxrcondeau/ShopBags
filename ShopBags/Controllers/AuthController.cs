@@ -34,8 +34,17 @@ namespace ShopBags.Controllers
             if (isAuthenticated)
             {
                 _view.ShowInfo("Login successful!");
-                _storeView.Show();
-                _view.Close();
+                bool gotUserOrders = _userService.GetUserOrders();
+
+                if (gotUserOrders)
+                {
+                    _storeView.Show();
+                    _view.Close();
+                }
+                else
+                {
+                    _view.ShowError("Error getting user orders data.");
+                }
             }
             else
             {

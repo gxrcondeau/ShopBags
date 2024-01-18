@@ -28,12 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "CartView";
+            dgvOrders = new DataGridView();
+            label1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
+            SuspendLayout();
+            // 
+            // dgvOrders
+            // 
+            dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvOrders.Location = new Point(12, 86);
+            dgvOrders.Name = "dgvOrders";
+            dgvOrders.Size = new Size(776, 352);
+            dgvOrders.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 36F);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(115, 65);
+            label1.TabIndex = 1;
+            label1.Text = "Cart";
+            // 
+            // CartView
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(label1);
+            Controls.Add(dgvOrders);
+            Name = "CartView";
+            Text = "CartView";
+            Load += CartView_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private DataGridView dgvOrders;
+        private Label label1;
     }
 }

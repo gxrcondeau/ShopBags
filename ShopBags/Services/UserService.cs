@@ -1,5 +1,7 @@
-﻿using ShopBags.Sessions;
+﻿using ShopBags.Helpers;
+using ShopBags.Sessions;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace ShopBags.Services
 {
@@ -12,8 +14,7 @@ namespace ShopBags.Services
 
         public bool AuthenticateUser(string email, string password)
         {
-            // Implement your authentication logic (e.g., check against the database)
-            string query = $"SELECT id as 'Id', username as 'Name', email as 'Email', isAdmin as 'IsAdmin', isEditor as 'IsEditor' FROM Users WHERE email = @Email AND password = @Password AND isActive = 1";
+            string query = $"SELECT id as 'Id', username as 'Name', email as 'Email', isAdmin as 'IsAdmin', isEditor as 'IsEditor' FROM Users WHERE email = @Email AND password = @Password AND isActive = 1 ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -43,6 +44,38 @@ namespace ShopBags.Services
                         else
                         {
                             return false; // Authentication failed
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool GetUserOrders()
+        {
+            string query = $"SELECT COUNT(*) as counter FROM ORDERS WHERE fk_user_id = {UserSession.Instance.id}";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            // Get user orders count
+                            reader.Read();
+                            int counter = reader.GetInt32(reader.GetOrdinal("counter"));
+
+                            UserSession.Instance.SetUserOrders(counter);
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false; // Getting user orders count failed
                         }
                     }
                 }
@@ -84,6 +117,7 @@ namespace ShopBags.Services
                 }
             }
         }
+        
         private bool IsEmailUnique(string email)
         {
             string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email";

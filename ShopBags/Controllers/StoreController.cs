@@ -1,4 +1,6 @@
 ﻿using ShopBags.Helpers;
+using ShopBags.Services;
+using ShopBags.Sessions;
 using ShopBags.Views;
 using System.Data;
 
@@ -7,22 +9,34 @@ namespace ShopBags.Controllers
     internal class StoreController
     {
         private readonly StoreView _view;
+        private readonly UserService _userService;
+        private CartView _cartView;
         private PanelView _panelView;
 
-        public StoreController(StoreView view)
+        public StoreController(StoreView view, UserService userService)
         {
             _view = view;
+            _userService = userService;
             WireUpEvents();
         }
 
         private void WireUpEvents()
         {
+            _view.OpenCart += OpenCart;
             _view.OpenPanel += OpenPanel;
             _view.FetchProducts += FetchProducts;
             _view.FetchProductsWithFilters += FetchProductsWithFilters;
             _view.FetchBrandsHelper += FetchBrandsCB;
             _view.FetchSizesHelper += FetchSizesCB;
             _view.FetchCategoriesHelper += FetchCategoriesCB;
+            _view.BuyProduct += BuyProduct;
+        }
+
+        private void OpenCart(object sender, EventArgs e)
+        {
+            _cartView = new CartView();
+            CartController cartController = new CartController(_cartView);
+            _cartView.Show();
         }
 
         private void OpenPanel(object sender, EventArgs e)
@@ -35,6 +49,7 @@ namespace ShopBags.Controllers
         private void FetchProducts(object? sender, EventArgs e)
         {
             string query = "SELECT " +
+                "bag.id as 'ID', " +
                 "bag.name as 'Name', " +
                 "brand.name as 'Brand', " +
                 "cat.name as 'Category', " +
@@ -98,6 +113,37 @@ namespace ShopBags.Controllers
         private void FetchCategoriesCB(object? sender, EventArgs e)
         {
             CategoriesHelper.LoadCategoriesData(_view);
+        }
+
+        private void BuyProduct(object? sender, DataGridViewCellEventArgs e)
+        {
+            
+            string columnName = _view.dgvStore.Columns[e.ColumnIndex].Name;
+            if (columnName != null)
+            {
+                string query = $"INSERT INTO Orders(fk_user_id, fk_bag_id, fk_status_id) VALUES(${UserSession.Instance.id}, ${_view.dgvStore.Rows[e.RowIndex].Cells["ID"].Value}, 2)";
+
+                try
+                {
+                    var result = DatabaseHelper.ExecuteNonQuery(query, null);
+                    if (result != 1)
+                    {
+                        _view.ShowError("Error adding to brand");
+                    }
+                    else
+                    {
+                        _view.ShowInfo("Successfully added to cart");
+                        _userService.GetUserOrders();
+                        _view.lblOrdersCounter.Visible = true;
+                        _view.lblOrdersCounter.Text = UserSession.Instance.ordersCnt.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    _view.ShowError(ex.ToString());
+                }
+            }
         }
     }
 }

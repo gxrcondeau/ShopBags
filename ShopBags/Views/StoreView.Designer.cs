@@ -30,7 +30,9 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dgvStore = new DataGridView();
+            Action = new DataGridViewButtonColumn();
             panel1 = new Panel();
+            lblOrdersCounter = new Label();
             btnShowCart = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnApplyFilters = new Button();
@@ -68,6 +70,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvStore.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvStore.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStore.Columns.AddRange(new DataGridViewColumn[] { Action });
             dgvStore.Dock = DockStyle.Right;
             dgvStore.GridColor = Color.Gray;
             dgvStore.Location = new Point(199, 0);
@@ -76,9 +79,18 @@
             dgvStore.RowTemplate.Height = 30;
             dgvStore.Size = new Size(1065, 681);
             dgvStore.TabIndex = 0;
+            dgvStore.CellContentClick += dgvStore_CellContentClick;
+            // 
+            // Action
+            // 
+            Action.HeaderText = "Action";
+            Action.Name = "Action";
+            Action.Text = "Buy";
+            Action.UseColumnTextForButtonValue = true;
             // 
             // panel1
             // 
+            panel1.Controls.Add(lblOrdersCounter);
             panel1.Controls.Add(btnShowCart);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(panel2);
@@ -88,6 +100,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 681);
             panel1.TabIndex = 1;
+            // 
+            // lblOrdersCounter
+            // 
+            lblOrdersCounter.AutoSize = true;
+            lblOrdersCounter.BackColor = Color.Red;
+            lblOrdersCounter.Font = new Font("Segoe UI", 24F);
+            lblOrdersCounter.ForeColor = Color.White;
+            lblOrdersCounter.Location = new Point(12, 588);
+            lblOrdersCounter.Name = "lblOrdersCounter";
+            lblOrdersCounter.Padding = new Padding(3);
+            lblOrdersCounter.Size = new Size(43, 51);
+            lblOrdersCounter.TabIndex = 2;
+            lblOrdersCounter.Text = "1";
             // 
             // btnShowCart
             // 
@@ -101,6 +126,7 @@
             btnShowCart.Size = new Size(199, 59);
             btnShowCart.TabIndex = 5;
             btnShowCart.UseVisualStyleBackColor = true;
+            btnShowCart.Click += btnShowCart_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -299,6 +325,7 @@
             Load += StoreView_Load;
             ((System.ComponentModel.ISupportInitialize)dgvStore).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -309,7 +336,7 @@
 
         #endregion
 
-        private DataGridView dgvStore;
+        public DataGridView dgvStore;
         private Panel panel1;
         private PictureBox imgUserIcon;
         private Label lblEmail;
@@ -329,5 +356,7 @@
         private Label label4;
         private ComboBox cbSizeFilter;
         private Button btnResetFilters;
+        public Label lblOrdersCounter;
+        private DataGridViewButtonColumn Action;
     }
 }

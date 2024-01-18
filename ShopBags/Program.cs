@@ -25,7 +25,7 @@ namespace ShopBags
             storeView = new StoreView();
 
             AuthController authController = new AuthController(user, authView, storeView);
-            StoreController storeController = new StoreController(storeView);
+            StoreController storeController = new StoreController(storeView, user);
 
             authView.Show();
 

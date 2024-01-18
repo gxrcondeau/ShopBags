@@ -1,20 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 
 namespace ShopBags.Views
 {
-    public partial class CartView : Form
+    public interface ICartView
     {
+        event EventHandler FetchOrders;
+
+        void ShowError(string message);
+    }
+
+    public partial class CartView : Form, ICartView
+    {
+        public event EventHandler FetchOrders;
         public CartView()
         {
             InitializeComponent();
+        }
+        public void ShowError(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void CartView_Load(object sender, EventArgs e)
+        {
+            FetchOrders?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void DisplayOrders(DataTable dataTable)
+        {
+            dgvOrders.DataSource = dataTable;
         }
     }
 }

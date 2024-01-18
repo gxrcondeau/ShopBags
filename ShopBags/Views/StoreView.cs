@@ -5,12 +5,14 @@ namespace ShopBags.Views
 {
     public interface IStoreView
     {
+        event EventHandler OpenCart;
         event EventHandler OpenPanel;
         event EventHandler FetchProducts;
         event EventHandler FetchProductsWithFilters;
         event EventHandler FetchSizesHelper;
         event EventHandler FetchBrandsHelper;
         event EventHandler FetchCategoriesHelper;
+        event DataGridViewCellEventHandler BuyProduct;
 
         string NameFilter { get; }
         string BrandFilter { get; }
@@ -33,12 +35,14 @@ namespace ShopBags.Views
         public string CategoryFilter => cbCategoryFilter.Text;
         public string SizeFilter => cbSizeFilter.Text;
 
+        public event EventHandler OpenCart;
         public event EventHandler OpenPanel;
         public event EventHandler FetchProducts;
         public event EventHandler FetchProductsWithFilters;
         public event EventHandler FetchSizesHelper;
         public event EventHandler FetchBrandsHelper;
         public event EventHandler FetchCategoriesHelper;
+        public event DataGridViewCellEventHandler BuyProduct;
 
         public void ShowError(string message)
         {
@@ -55,6 +59,12 @@ namespace ShopBags.Views
 
             lblUsername.Text = UserSession.Instance.username;
             lblEmail.Text = UserSession.Instance.email;
+            lblOrdersCounter.Text = UserSession.Instance.ordersCnt.ToString();
+
+            if (lblOrdersCounter.Text == "0")
+            {
+                lblOrdersCounter.Visible = false;
+            }
 
             // Check if user has admin role and enable access to panel
             if (UserSession.Instance.isAdmin)
@@ -87,6 +97,11 @@ namespace ShopBags.Views
             OpenPanel?.Invoke(this, EventArgs.Empty);
         }
 
+        private void btnShowCart_Click(object sender, EventArgs e)
+        {
+            OpenCart?.Invoke(this, EventArgs.Empty);
+        }
+
         private void DeleteColumn(string column)
         {
             if (dgvStore.Columns.Cast<DataGridViewColumn>().Any(col => col.Name == column))
@@ -96,18 +111,13 @@ namespace ShopBags.Views
 
         }
 
-        private void AddColumn(DataGridViewComboBoxColumn column)
-        {
-            if (!dgvStore.Columns.Cast<DataGridViewColumn>().Any(col => col.Name == column.Name))
-            {
-                dgvStore.Columns.Add(column);
-            }
-        }
-
         // Products methods
         public void DisplayProducts(DataTable dataTable)
         {
             dgvStore.DataSource = dataTable;
+
+            dgvStore.Columns["ID"].Visible = false;
+            dgvStore.Columns["Action"].DisplayIndex = dgvStore.ColumnCount - 1;
 
             DeleteColumn("SizeId");
             DeleteColumn("BrandId");
@@ -156,6 +166,11 @@ namespace ShopBags.Views
         {
             txtNameFilter.Text = "";
             FetchProducts?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void dgvStore_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            BuyProduct?.Invoke(this, e);
         }
     }
 }

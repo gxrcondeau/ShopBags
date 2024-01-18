@@ -9,6 +9,7 @@
         public string username { get; private set; }
         public bool isAdmin { get; private set; }
         public bool isEditor { get; private set; }
+        public int ordersCnt { get; private set; }
 
         private UserSession() { }
 
@@ -32,6 +33,9 @@
             isAdmin = admin;
             isEditor = editor;
         }
-
+        public void SetUserOrders(int orders)
+        {
+            ordersCnt = orders;
+        }
     }
 }
